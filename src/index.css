@@ -1,5 +1,6 @@
 @import 'normalize.css';
 @import 'bulma/css/bulma.css';
+@import 'material-icons/iconfont/material-icons.css';
 
 body {
   margin: 0;
@@ -14,3 +15,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
