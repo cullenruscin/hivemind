@@ -4,7 +4,7 @@ import "./NavBar.css";
 export const NavBar = () => {
     const navigate = useNavigate();
 
-    return <>
+    return (
         <nav className="navbar is-light">
             <div className="container">
                 <div className="navbar-menu">
@@ -14,7 +14,7 @@ export const NavBar = () => {
                     <div className="navbar-end">
                         <Link className="navbar-item" to="/post/upload"><span class="material-icons-outlined">add</span></Link>
                         <div className="navbar-item has-dropdown is-hoverable">
-                            <Link className="navbar-item" to="/profile"><span class="material-icons-outlined">account_circle</span></Link>
+                            <Link className="navbar-item" to="/profile/favorites"><span class="material-icons-outlined">account_circle</span></Link>
                             <div className="navbar-dropdown">
                                 <Link className="navbar-item" to="" onClick={() => {
                                     localStorage.removeItem("hivemind_user")
@@ -27,5 +27,5 @@ export const NavBar = () => {
                 </div>
             </div>
         </nav>
-    </>
+    );
 }

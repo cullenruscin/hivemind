@@ -52,5 +52,5 @@ export const Login = () => {
                 </section>
             </main> 
         </div>
-    )
+    );
 }
