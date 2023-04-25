@@ -18,7 +18,7 @@ export const Login = () => {
                         admin: user.isAdmin
                     }))
 
-                    navigate("/")
+                    navigate("/posts")
                 }
                 else {
                     window.alert("Invalid login")
