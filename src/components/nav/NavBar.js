@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom"
-import "./NavBar.css"
+import { Link, useNavigate } from "react-router-dom";
+import "./NavBar.css";
 
 export const NavBar = () => {
     const navigate = useNavigate();
@@ -9,7 +9,7 @@ export const NavBar = () => {
             <div className="container">
                 <div className="navbar-menu">
                     <div className="navbar-start">
-                        <Link className="navbar-item" to="/posts"><span class="material-icons-outlined">hive</span> <b class="hivemind-logo title is-4">HIVEMIND</b></Link>
+                        <Link className="navbar-item" to="/posts"><span class="material-icons-outlined">hive</span> <b class="hivemind-logo title is-4">HiveMind</b></Link>
                     </div>
                     <div className="navbar-end">
                         <Link className="navbar-item" to="/post/upload"><span class="material-icons-outlined">add</span></Link>
