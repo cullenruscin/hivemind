@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export const ProfileTabs = () => {
 
-    const [activeTab, setActiveTab] = useState(0);
+    const [activeTab, setActiveTab] = useState();
 
     const navigate = useNavigate();
 
