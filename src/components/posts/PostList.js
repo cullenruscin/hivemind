@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react"
 
-export const PostList = () => {
+export const PostList = ({ filter }) => {
     const [posts, setPosts] = useState([])
 
     useEffect(
         () => {
-            fetch(`http://localhost:8088/posts?_expand=user`)
+            const queryString = filter ? filter : '';
+
+            fetch(`http://localhost:8088/posts?_expand=user&&${queryString}`)
                 .then(res => res.json())
                 .then((postArray) => {
                     setPosts(postArray)
                 })
         },
-        []
-    )
+        [filter]
+    );
 
     return <>
         <div className="container">
@@ -20,7 +22,7 @@ export const PostList = () => {
                     {
                         posts.map(
                             (post) => {
-                                return <div className="tile is-parent is-4">
+                                return <div className="tile is-parent is-4" key={`postcard--${post.id}`}>
                                     <div className="tile is-child box">
                                         <div className="title is-6">{post.title}</div>
                                         <div className="subtitle is-6">{post.user.firstName} {post.user.lastName}</div>
