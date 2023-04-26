@@ -34,7 +34,7 @@ export const PostForm = () => {
             })
     }
 
-    return <>
+    return (
         <form className="container box mt-5">
             <fieldset>
                 <input 
@@ -70,6 +70,5 @@ export const PostForm = () => {
                 Upload
             </button>
         </form>
-    </>
-
+    );
 }
