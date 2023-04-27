@@ -9,8 +9,8 @@ export const ButtonFavorite = ({ post }) => {
 
     useEffect(
         () => {
-            const likes = post.likes.find(like => like.userId === userId);
-            setFavorited(likes !== undefined);
+            const favorites = post.favorites.find(favorite => favorite.userId === userId);
+            setFavorited(favorites !== undefined);
         },
         [post]
     );
@@ -24,18 +24,18 @@ export const ButtonFavorite = ({ post }) => {
         }
 
         if (favorited) {
-            fetch(`http://localhost:8088/likes?postId=${post.id}&userId=${userId}`)
+            fetch(`http://localhost:8088/favorites?postId=${post.id}&userId=${userId}`)
               .then(res => res.json())
-              .then(likes => {
-                const likeId = likes[0].id;
-                fetch(`http://localhost:8088/likes/${likeId}`, { method: 'DELETE' })
+              .then(favorites => {
+                const favoriteId = favorites[0].id;
+                fetch(`http://localhost:8088/favorites/${favoriteId}`, { method: 'DELETE' })
                   .then(
                     () => {
                         setFavorited(false);
                     });
               });
         } else {
-            fetch('http://localhost:8088/likes', {
+            fetch('http://localhost:8088/favorites', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(favoriteToSendToAPI)

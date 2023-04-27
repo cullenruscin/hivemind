@@ -10,7 +10,7 @@ export const PostList = ({ filter }) => {
     const getPosts = () => {
         const queryString = filter ? filter : '';
 
-        fetch(`http://localhost:8088/posts?_expand=user&_embed=likes&${queryString}`)
+        fetch(`http://localhost:8088/posts?_expand=user&_embed=favorites&${queryString}`)
             .then(res => res.json())
             .then((postArray) => {
                 setPosts(postArray)
