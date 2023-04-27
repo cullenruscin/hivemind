@@ -1,22 +1,27 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+import { ButtonFavorite } from "../../buttons/ButtonFavorite";
 
 export const PostList = ({ filter }) => {
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState([]);
 
     const localUser = localStorage.getItem("hivemind_user");
     const userObject = JSON.parse(localUser);
 
+    const getPosts = () => {
+        const queryString = filter ? filter : '';
+
+        fetch(`http://localhost:8088/posts?_expand=user&_embed=likes&${queryString}`)
+            .then(res => res.json())
+            .then((postArray) => {
+                setPosts(postArray)
+            })
+    }
+
     useEffect(
         () => {
-            const queryString = filter ? filter : '';
-
-            fetch(`http://localhost:8088/posts?_expand=user&&${queryString}`)
-                .then(res => res.json())
-                .then((postArray) => {
-                    setPosts(postArray)
-                })
+            getPosts();
         },
-        [posts]
+        []
     );
 
     const handleDeleteButtonClick = (event, id) => {
@@ -26,6 +31,11 @@ export const PostList = ({ filter }) => {
             method: 'DELETE',
           })
             .then(res => res.json())
+            .then(
+                () => {
+                    getPosts();
+                }
+            )
     }
 
     return <>
@@ -38,12 +48,13 @@ export const PostList = ({ filter }) => {
                                     <div className="tile is-child box">
                                         <div className="title is-6">{post.title}</div>
                                         <div className="subtitle is-6">{post.user.firstName} {post.user.lastName}</div>
+                                        <ButtonFavorite post={post}/>
                                         {
                                             post.userId === userObject.id || userObject.admin
                                                 ? <>
                                                     <button 
-                                                        onClick={(clickEvent) => handleDeleteButtonClick(clickEvent, post.id)} 
-                                                        className="button is-light">
+                                                        className="button is-light"
+                                                        onClick={(clickEvent) => handleDeleteButtonClick(clickEvent, post.id)}> 
                                                         <span className="icon material-icons-outlined">delete</span>
                                                     </button>
                                                 </>
@@ -58,3 +69,4 @@ export const PostList = ({ filter }) => {
         </div>
     </>
 }
+

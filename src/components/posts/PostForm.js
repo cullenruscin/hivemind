@@ -10,6 +10,7 @@ export const PostForm = () => {
 
     const localUser = localStorage.getItem("hivemind_user");
     const userObject = JSON.parse(localUser);
+    
     const navigate = useNavigate();
 
     const handleUploadButtonClick = (event) => {
