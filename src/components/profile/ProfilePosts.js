@@ -14,6 +14,6 @@ export const ProfilePosts = ({ setActiveTab }) => {
     );
 
     return <>
-        <PostList filter={`userId=${userObject.id}`}/>
+        <PostList filter={"User"}/>
     </>
 }

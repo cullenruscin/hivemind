@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const ButtonFavorite = ({ post }) => {
+export const ButtonFavorite = ({ post, getPosts }) => {
     const [favorited, setFavorited] = useState(false);
 
     const localUser = localStorage.getItem("hivemind_user");
@@ -32,6 +32,7 @@ export const ButtonFavorite = ({ post }) => {
                   .then(
                     () => {
                         setFavorited(false);
+                        getPosts();
                     });
               });
         } else {
@@ -43,6 +44,7 @@ export const ButtonFavorite = ({ post }) => {
               .then(
                 () => {
                     setFavorited(true);
+                    getPosts();
                 });
         }
     }

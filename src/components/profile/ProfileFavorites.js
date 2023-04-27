@@ -1,6 +1,10 @@
 import { useEffect } from "react";
+import { PostList } from "../posts/PostList";
 
 export const ProfileFavorites = ({ setActiveTab }) => {
+
+    const localUser = localStorage.getItem("hivemind_user");
+    const userObject = JSON.parse(localUser);
 
     useEffect(
         () => {
@@ -10,6 +14,6 @@ export const ProfileFavorites = ({ setActiveTab }) => {
     );
 
     return <>
-        <p>All my favorites go here!</p>
+        <PostList filter={"Favorites"}/>
     </>
 }

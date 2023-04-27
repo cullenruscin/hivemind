@@ -12,7 +12,7 @@ export const ApplicationViews = () => {
                     <Outlet/>
                 </>
             }>
-                <Route path="posts" element={ <PostList/> }/>
+                <Route path="posts" element={ <PostList filter={"All"}/> }/>
                 <Route path="post/upload" element={ <PostForm/> }/>
                 <Route path="profile/*" element={ <Profile/> }/>
             </Route>
