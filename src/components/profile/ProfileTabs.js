@@ -8,7 +8,7 @@ export const ProfileTabs = ({ activeTab }) => {
         <div className="tabs is-centered">
             <ul>
                 <li 
-                    className={activeTab === 0 ? 'is-active' : ''} 
+                    className={activeTab === "Favorites" ? 'is-active' : ''} 
                     onClick={() => {
                             navigate("/profile/favorites");
                         }
@@ -16,7 +16,7 @@ export const ProfileTabs = ({ activeTab }) => {
                     <a>Favorites</a>
                 </li>
                 <li 
-                    className={activeTab === 1 ? 'is-active' : ''} 
+                    className={activeTab === "UserPosts" ? 'is-active' : ''} 
                     onClick={() => { 
                             navigate("/profile/posts");
                         }
@@ -24,7 +24,7 @@ export const ProfileTabs = ({ activeTab }) => {
                     <a>Posts</a>
                 </li>
                 <li 
-                    className={activeTab === 2 ? 'is-active' : ''} 
+                    className={activeTab === "Collections" ? 'is-active' : ''} 
                     onClick={() => {
                             navigate("/profile/collections");
                         }

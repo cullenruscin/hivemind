@@ -3,7 +3,6 @@ import { PostList } from "../posts/PostList";
 import { PostForm } from "../posts/PostForm";
 import { Profile } from "../profile/Profile";
 
-
 export const ApplicationViews = () => {
     return <>
         <Routes>

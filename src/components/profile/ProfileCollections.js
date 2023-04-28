@@ -4,7 +4,7 @@ export const ProfileCollections = ({ setActiveTab }) => {
 
     useEffect(
         () => {
-            setActiveTab(2)
+            setActiveTab("Collections");
         },
         []
     );

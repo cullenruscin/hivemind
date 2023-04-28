@@ -20,7 +20,7 @@ export const PostForm = () => {
             userId: userObject.id,
             title: post.title,
             description: post.description
-        }
+        };
 
         return fetch(`http://localhost:8088/posts`, {
             method: "POST",
@@ -32,7 +32,7 @@ export const PostForm = () => {
             .then(res => res.json())
             .then(() => {
                 navigate("/posts")
-            })
+            });
     }
 
     return (

@@ -4,7 +4,7 @@ export const Authorized = ({ children }) => {
     const location = useLocation()
     
     if (localStorage.getItem("hivemind_user")) {
-        return children
+        return children;
     }
     else {
         return <Navigate

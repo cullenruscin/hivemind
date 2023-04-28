@@ -8,7 +8,7 @@ export const ProfileFavorites = ({ setActiveTab }) => {
 
     useEffect(
         () => {
-            setActiveTab(0)
+            setActiveTab("Favorites");
         },
         []
     );

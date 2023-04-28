@@ -14,7 +14,7 @@ export const PostList = ({ filter }) => {
             .then(res => res.json())
             .then((postArray) => {
                 setPosts(postArray);
-            })
+            });
     }
 
     useEffect(
@@ -48,7 +48,7 @@ export const PostList = ({ filter }) => {
                 () => {
                     getPosts();
                 }
-            )
+            );
     }
 
     return <>
@@ -66,9 +66,9 @@ export const PostList = ({ filter }) => {
                                             post.userId === userObject.id || userObject.admin
                                                 ? <>
                                                     <button 
-                                                        className="button is-light"
+                                                        className="button is-light is-small"
                                                         onClick={(clickEvent) => handleDeleteButtonClick(clickEvent, post.id)}> 
-                                                        <span className="icon material-icons-outlined">delete</span>
+                                                        <span className="icon"><i className="material-icons-outlined">delete</i></span>
                                                     </button>
                                                 </>
                                                 : <></>

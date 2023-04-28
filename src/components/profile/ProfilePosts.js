@@ -3,12 +3,9 @@ import { PostList } from "../posts/PostList";
 
 export const ProfilePosts = ({ setActiveTab }) => {
 
-    const localUser = localStorage.getItem("hivemind_user");
-    const userObject = JSON.parse(localUser);
-
     useEffect(
         () => {
-            setActiveTab(1)
+            setActiveTab("UserPosts");
         },
         []
     );
