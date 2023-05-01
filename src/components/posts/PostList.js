@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ButtonFavorite } from "../../buttons/ButtonFavorite";
+import { Link } from "react-router-dom";
 
 export const PostList = ({ filter }) => {
     const [posts, setPosts] = useState([]);
@@ -57,7 +58,7 @@ export const PostList = ({ filter }) => {
                     {
                         filteredPosts.map(
                             (post) => {
-                                return <div className="tile is-parent is-4" key={`postcard--${post.id}`}>
+                                return <div className="tile is-parent is-4" key={`post-${post.id}`}>
                                     <div className="tile is-child box is-justify-content-space-evenly">
                                         <div className="title is-6">{post.title}</div>
                                         <div className="subtitle is-6 mb-4">{post.user.firstName} {post.user.lastName}</div>
@@ -69,9 +70,13 @@ export const PostList = ({ filter }) => {
                                                     post.userId === userObject.id || userObject.admin
                                                         ? <>
                                                             <button 
-                                                                className="button is-light is-link is-small"
+                                                                className="button is-light is-link is-small mr-1"
                                                                 onClick={(clickEvent) => handleDeleteButtonClick(clickEvent, post.id)}> 
                                                                 <span className="icon"><i className="material-icons-outlined">delete</i></span>
+                                                            </button>
+                                                            <button 
+                                                                className="button is-light is-link is-small">
+                                                                    <Link className="icon" to={`/posts/${post.id}/edit`}><span className="icon"><i className="material-icons-outlined">edit</i></span></Link> 
                                                             </button>
                                                         </>
                                                         : <></>

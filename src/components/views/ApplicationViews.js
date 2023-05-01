@@ -1,6 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 import { PostList } from "../posts/PostList";
-import { PostForm } from "../posts/PostForm";
+import { PostCreate } from "../posts/PostCreate";
+import { PostEdit } from "../posts/PostEdit";
 import { Profile } from "../profile/Profile";
 
 export const ApplicationViews = () => {
@@ -12,7 +13,8 @@ export const ApplicationViews = () => {
                 </>
             }>
                 <Route path="posts" element={ <PostList filter={"All"}/> }/>
-                <Route path="post/upload" element={ <PostForm/> }/>
+                <Route path="post/create" element={ <PostCreate/> }/>
+                <Route path="posts/:postId/edit" element={ <PostEdit/> }/>
                 <Route path="profile/*" element={ <Profile/> }/>
             </Route>
         </Routes>

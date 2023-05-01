@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const PostForm = () => {
+export const PostEdit = () => {
     
     const [tags, setTags] = useState([])
+    const {postId} = useParams()
     const [post, update] = useState({
         title: "",
         description: "",
@@ -18,6 +19,19 @@ export const PostForm = () => {
 
     useEffect(
         () => {
+            fetch(`http://localhost:8088/posts/${postId}`)
+                .then(res => res.json())
+                .then(
+                    (post) => {
+                        update(post)
+                    }
+                )
+        },
+        []
+    )
+
+    useEffect(
+        () => {
             fetch(`http://localhost:8088/tags`)
                 .then(res => res.json())
                 .then((tagsArray) => {
@@ -27,7 +41,7 @@ export const PostForm = () => {
         []
     )
 
-    const handleUploadButtonClick = (event) => {
+    const handleSaveButtonClick = (event) => {
         event.preventDefault();
 
         const postToSendToAPI = {
@@ -38,8 +52,8 @@ export const PostForm = () => {
             tagId: post.tagId
         };
 
-        return fetch(`http://localhost:8088/posts`, {
-            method: "POST",
+        return fetch(`http://localhost:8088/posts/${postId}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -111,7 +125,7 @@ export const PostForm = () => {
                             {
                                 tags.map(
                                     (tag) => {
-                                        return <option value={tag.id}>{tag.label}</option>
+                                        return <option key={`tag--edit--${tag.id}`}value={tag.id}>{tag.label}</option>
                                     }
                                 )
                             }
@@ -119,9 +133,9 @@ export const PostForm = () => {
                 </div>
             </fieldset>
             <button 
-                onClick={(clickEvent) => handleUploadButtonClick(clickEvent)}
+                onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="button is-light mt-4">
-                Upload
+                Save
             </button>
         </form>
     );
