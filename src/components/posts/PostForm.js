@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const PostForm = () => {
     
+    const [tags, setTags] = useState([])
     const [post, update] = useState({
         title: "",
-        description: ""
+        description: "",
+        image: "",
+        tagId: 1
     });
 
     const localUser = localStorage.getItem("hivemind_user");
@@ -13,13 +16,26 @@ export const PostForm = () => {
     
     const navigate = useNavigate();
 
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/tags`)
+                .then(res => res.json())
+                .then((tagsArray) => {
+                    setTags(tagsArray)
+                })
+        },
+        []
+    )
+
     const handleUploadButtonClick = (event) => {
         event.preventDefault();
 
         const postToSendToAPI = {
             userId: userObject.id,
             title: post.title,
-            description: post.description
+            description: post.description,
+            image: post.image,
+            tagId: post.tagId
         };
 
         return fetch(`http://localhost:8088/posts`, {
@@ -52,6 +68,20 @@ export const PostForm = () => {
                         }
                     } />
             </fieldset>
+            <fieldset>
+                <input 
+                    type="text"
+                    className="input mt-4"
+                    placeholder="Image URL"
+                    value={post.image}
+                    onChange={
+                        (evt) => {
+                            const copy = {...post}
+                            copy.image = evt.target.value
+                            update(copy)
+                        }
+                    } />
+            </fieldset>
             <fieldset className="mt-4">
                 <textarea
                     className="textarea"
@@ -64,6 +94,29 @@ export const PostForm = () => {
                             update(copy)
                         }
                     } />
+            </fieldset>
+            <fieldset>
+                <div className="select mt-4">
+                    <select 
+                        type="text"
+                        placeholder="Tag"
+                        value={post.tagId}
+                        onChange={
+                            (evt) => {
+                                const copy = {...post}
+                                copy.tagId = parseInt(evt.target.value)
+                                update(copy)
+                            }
+                        }>
+                            {
+                                tags.map(
+                                    (tag) => {
+                                        return <option value={tag.id}>{tag.label}</option>
+                                    }
+                                )
+                            }
+                    </select>
+                </div>
             </fieldset>
             <button 
                 onClick={(clickEvent) => handleUploadButtonClick(clickEvent)}

@@ -10,7 +10,7 @@ export const PostList = ({ filter }) => {
 
     const getPosts = () => {
 
-        fetch(`http://localhost:8088/posts?_expand=user&_embed=favorites`)
+        fetch(`http://localhost:8088/posts?_expand=user&_expand=tag&_embed=favorites`)
             .then(res => res.json())
             .then((postArray) => {
                 setPosts(postArray);
@@ -53,26 +53,34 @@ export const PostList = ({ filter }) => {
 
     return <>
         <div className="container">
-            <div className="tile is-ancestor is-verticle is-flex-wrap-wrap mt-3">
+            <div className="tile is-ancestor is-flex-wrap-wrap mt-3">
                     {
                         filteredPosts.map(
                             (post) => {
                                 return <div className="tile is-parent is-4" key={`postcard--${post.id}`}>
-                                    <div className="tile is-child box">
+                                    <div className="tile is-child box is-justify-content-space-evenly">
                                         <div className="title is-6">{post.title}</div>
-                                        <div className="subtitle is-6">{post.user.firstName} {post.user.lastName}</div>
-                                        <ButtonFavorite post={post} getPosts={getPosts}/>
-                                        {
-                                            post.userId === userObject.id || userObject.admin
-                                                ? <>
-                                                    <button 
-                                                        className="button is-light is-small"
-                                                        onClick={(clickEvent) => handleDeleteButtonClick(clickEvent, post.id)}> 
-                                                        <span className="icon"><i className="material-icons-outlined">delete</i></span>
-                                                    </button>
-                                                </>
-                                                : <></>
-                                        }
+                                        <div className="subtitle is-6 mb-4">{post.user.firstName} {post.user.lastName}</div>
+                                        <img className="image" src={post.image}></img>
+                                        <nav className="level mt-1">
+                                            <div className="level-left">
+                                                <ButtonFavorite post={post} getPosts={getPosts}/>
+                                                {
+                                                    post.userId === userObject.id || userObject.admin
+                                                        ? <>
+                                                            <button 
+                                                                className="button is-light is-link is-small"
+                                                                onClick={(clickEvent) => handleDeleteButtonClick(clickEvent, post.id)}> 
+                                                                <span className="icon"><i className="material-icons-outlined">delete</i></span>
+                                                            </button>
+                                                        </>
+                                                        : <></>
+                                                }
+                                            </div>
+                                            <div className="level-right">
+                                                <span className="tag is-light is-link is-rounded ml-1">{post?.tag?.label}</span>
+                                            </div>
+                                        </nav>
                                     </div>
                                 </div>
                             }
