@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { ButtonFavorite } from "../../buttons/ButtonFavorite";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export const PostList = ({ filter }) => {
+    const {collectionId} = useParams();
+
     const [posts, setPosts] = useState([]);
     const [filteredPosts, setFiltered] = useState([])
 
@@ -11,7 +13,7 @@ export const PostList = ({ filter }) => {
 
     const getPosts = () => {
 
-        fetch(`http://localhost:8088/posts?_expand=user&_expand=tag&_embed=favorites`)
+        fetch(`http://localhost:8088/posts?_expand=user&_expand=tag&_embed=favorites&_embed=postCollections`)
             .then(res => res.json())
             .then((postArray) => {
                 setPosts(postArray);
@@ -25,7 +27,9 @@ export const PostList = ({ filter }) => {
             } else if (filter === "User") {
                 setFiltered(posts.filter(post => post.userId === userObject.id));
             } else if (filter === "Favorites") {            
-                setFiltered(posts.filter(post => post.favorites.some(favorite => favorite.userId === userObject.id)));
+                setFiltered(posts.filter(post => post.favorites.find(favorite => favorite.userId === userObject.id)));
+            } else if (filter === "Collection") {
+                setFiltered(posts.filter(post => post.postCollections.find(collection => collection.collectionId === parseInt(collectionId))));
             }
         },
         [posts]
@@ -59,7 +63,7 @@ export const PostList = ({ filter }) => {
                         filteredPosts.map(
                             (post) => {
                                 return <div className="tile is-parent is-4" key={`post-${post.id}`}>
-                                    <div className="tile is-child box is-justify-content-space-evenly">
+                                    <div className="tile is-child box">
                                         <div className="title is-6">{post.title}</div>
                                         <div className="subtitle is-6 mb-4">{post.user.firstName} {post.user.lastName}</div>
                                         <img className="image" src={post.image}></img>
@@ -96,3 +100,16 @@ export const PostList = ({ filter }) => {
     </>
 }
 
+/*
+
+TITLE           EDIT
+--------------------
+
+
+       IMAGE
+
+(TAG)
+--------------------
+LIKE      |      ADD
+
+*/
