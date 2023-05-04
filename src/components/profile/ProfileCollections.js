@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { CollectionList } from "../collections/CollectionList";
 
 export const ProfileCollections = ({ setActiveTab }) => {
 
@@ -10,6 +12,6 @@ export const ProfileCollections = ({ setActiveTab }) => {
     );
 
     return <>
-        <p>All my liked collections go here!</p>
+        <CollectionList/>
     </>
 }

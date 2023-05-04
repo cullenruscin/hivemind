@@ -3,8 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export const PostEdit = () => {
     
-    const [tags, setTags] = useState([])
     const {postId} = useParams()
+    const [tags, setTags] = useState([])
     const [post, update] = useState({
         title: "",
         description: "",
