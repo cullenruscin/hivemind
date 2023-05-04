@@ -6,18 +6,26 @@ export const PostList = ({ filter }) => {
     const {collectionId} = useParams();
 
     const [posts, setPosts] = useState([]);
-    const [filteredPosts, setFiltered] = useState([])
+    const [collections, setCollections] = useState([]);
+    const [filteredPosts, setFiltered] = useState([]);
 
     const localUser = localStorage.getItem("hivemind_user");
     const userObject = JSON.parse(localUser);
 
     const getPosts = () => {
-
         fetch(`http://localhost:8088/posts?_expand=user&_expand=tag&_embed=favorites&_embed=postCollections`)
             .then(res => res.json())
             .then((postArray) => {
                 setPosts(postArray);
             });
+    }
+
+    const getCollections = () => {
+        fetch(`ttp://localhost:8088/collections`)
+            .then(res => res.json())
+            .then((collectionArray) => {
+                setCollections(collectionArray);
+            })
     }
 
     useEffect(
@@ -38,6 +46,7 @@ export const PostList = ({ filter }) => {
     useEffect(
         () => {
             getPosts();
+            getCollections();
         },
         []
     );
@@ -79,7 +88,7 @@ export const PostList = ({ filter }) => {
                                                                 <span className="icon"><i className="material-icons-outlined">delete</i></span>
                                                             </button>
                                                             <button 
-                                                                className="button is-light is-link is-small">
+                                                                className="button is-light is-link is-small mr-1">
                                                                     <Link className="icon" to={`/posts/${post.id}/edit`}><span className="icon"><i className="material-icons-outlined">edit</i></span></Link> 
                                                             </button>
                                                         </>

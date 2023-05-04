@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom";
 
 export const ProfileUser = () => {
 
@@ -31,7 +32,12 @@ export const ProfileUser = () => {
             <div className="is-flex is-flex-direction-column is-align-items-center m-4">
                 <p className="title is-4">{user.firstName} {user.lastName}</p>
                 <p className="subtitle is-6">{user.description}</p>
+                <button 
+                    className="button is-light is-link is-small mr-1">
+                    <Link className="icon" to={`edit`}><span className="icon"><i className="material-icons-outlined">edit</i></span></Link> 
+                </button>
             </div>
+            
         </div>
     )
 }
