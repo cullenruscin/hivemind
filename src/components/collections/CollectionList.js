@@ -43,7 +43,7 @@ export const CollectionList = () => {
                 {
                     collections.map(
                         (collection) => {
-                            return <div className="tile is-parent is-4">
+                            return <div className="tile is-parent is-4" key={`collectionList--${collection.id}`}>
                                 <div className="tile is-child box has-text-centered">
                                     <Link className="title is-6" to={`${collection.id}`}>{collection.title}</Link>
                                     {

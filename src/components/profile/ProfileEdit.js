@@ -6,6 +6,7 @@ export const ProfileEdit = () => {
     const [profile, update] = useState({
         firstName: "",
         lastName: "",
+        email: "",
         description: ""
     });
 
@@ -33,6 +34,7 @@ export const ProfileEdit = () => {
         const profileToSendToAPI = {
             firstName: profile.firstName,
             lastName: profile.lastName,
+            email: profile.email,
             description: profile.description,
         };
 
