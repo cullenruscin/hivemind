@@ -245,6 +245,3 @@ TITLE           EDIT
 LIKE      |      ADD
 
 */
-
-
-//handleRemoveButtonClick(clickEvent, post.postCollections.find(postCollection => postCollection.collectionId === collectionId && post.id === postCollection.postId).id)}> 

@@ -45,7 +45,7 @@ export const CollectionList = () => {
                         (collection) => {
                             return <div className="tile is-parent is-4" key={`collectionList--${collection.id}`}>
                                 <div className="tile is-child box has-text-centered">
-                                    <Link className="title is-6" to={`${collection.id}`}>{collection.title}</Link>
+                                    <Link className="title is-6 mr-3" to={`${collection.id}`}>{collection.title}</Link>
                                     {
                                         collection.userId === userObject.id || userObject.admin
                                         ? <>
