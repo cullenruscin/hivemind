@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { ButtonFavorite } from "../../buttons/ButtonFavorite";
 import { Link, useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 export const PostList = ({ filter }) => {
     const {collectionId} = useParams();
@@ -11,11 +10,8 @@ export const PostList = ({ filter }) => {
     const [filteredCollections, setFilteredCollections] = useState([]);
     const [filteredPosts, setFiltered] = useState([]);
 
-    const navigate = useNavigate();
-
     const localUser = localStorage.getItem("hivemind_user");
     const userObject = JSON.parse(localUser);
-    const userCollections = collections.filter(collection => collection.userId === userObject.id);
 
     const getPosts = () => {
         fetch(`http://localhost:8088/posts?_expand=user&_expand=tag&_embed=favorites&_embed=postCollections`)
@@ -138,34 +134,62 @@ export const PostList = ({ filter }) => {
                         filteredPosts.map(
                             (post) => {
                                 return <div className="tile is-parent is-4" key={`post-${post.id}`}>
-                                    <div className="tile is-child box">
-                                        <div className="title is-6">{post.title}</div>
-                                        <div className="subtitle is-6 mb-4">{post.user.firstName} {post.user.lastName}</div>
-                                        <img className="image" src={post.image}></img>
-                                        <nav className="level mt-1">
+                                    <div className="tile is-child card">
+                                        <div className="is-flex is-justify-content-space-between p-2">
+                                            <div>
+                                                <div className="title is-6">{post.title}</div>
+                                                <div className="subtitle is-6">{post.user.firstName} {post.user.lastName}</div>
+                                            </div>
+                                            {
+                                                post.userId === userObject.id || userObject.admin
+                                                    ? <>
+                                                        <div className="dropdown is-hoverable">
+                                                            <div className="dropdown-trigger">
+                                                                <button
+                                                                    className="button is-light is-link is-small">
+                                                                    <span className="icon"><i className="material-icons-outlined">edit</i></span>
+                                                                </button>
+                                                            </div>
+                                                            <div className="dropdown-menu">
+                                                                <div className="dropdown-content">
+                                                                    <Link className="dropdown-item" to={`/posts/${post.id}/edit`}>Edit</Link>
+                                                                    {
+                                                                        filter === "Collection"
+                                                                            ? <>
+                                                                                <a
+                                                                                    href="#"
+                                                                                    className="dropdown-item"
+                                                                                    onClick={(clickEvent) => handleRemoveButtonClick(clickEvent, post.postCollections.find(postCollection => postCollection.postId === post.id).id)}
+                                                                                >Remove</a>
+                                                                            </>
+                                                                            : <></>
+                                                                    }
+                                                                    <a
+                                                                        href="#"
+                                                                        className="dropdown-item"
+                                                                        onClick={(clickEvent) => handleDeleteButtonClick(clickEvent, post.id)}
+                                                                    >Delete</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                    : <></>
+                                            }
+                                        </div>
+                                        <div className="card-image">
+                                            <div className="image is-4by3">
+                                                <img className="image" src={post.image}></img>
+                                            </div>
+                                        </div>
+                                        <div className="level p-2">
                                             <div className="level-left">
                                                 <ButtonFavorite post={post} getPosts={getPosts}/>
-                                                {
-                                                    post.userId === userObject.id || userObject.admin
-                                                        ? <>
-                                                            <button 
-                                                                className="button is-light is-link is-small mr-1"
-                                                                onClick={(clickEvent) => handleDeleteButtonClick(clickEvent, post.id)}> 
-                                                                <span className="icon"><i className="material-icons-outlined">delete</i></span>
-                                                            </button>
-                                                            <button 
-                                                                className="button is-light is-link is-small mr-1">
-                                                                    <Link className="icon" to={`/posts/${post.id}/edit`}><span className="icon"><i className="material-icons-outlined">edit</i></span></Link> 
-                                                            </button>
-                                                        </>
-                                                        : <></>
-                                                }
                                                 {
                                                     filteredCollections.length > 0
                                                         ? <>
                                                             <div className="dropdown is-hoverable">
                                                                 <div className="dropdown-trigger">
-                                                                    <button className="button is-light is-link is-small mr-1" aria-haspopup="true" aria-controls="dropdown-menu4">
+                                                                    <button className="button is-light is-link is-small mr-1">
                                                                         <span className="icon"><i className="material-icons-outlined">add</i></span>
                                                                     </button>
                                                                 </div>
@@ -221,7 +245,7 @@ export const PostList = ({ filter }) => {
                                             <div className="level-right">
                                                 <span className="tag is-light is-link is-rounded ml-1">{post?.tag?.label}</span>
                                             </div>
-                                        </nav>
+                                        </div>
                                     </div>
                                 </div>
                             }
@@ -232,16 +256,3 @@ export const PostList = ({ filter }) => {
     </>
 }
 
-/*
-
-TITLE           EDIT
---------------------
-
-
-       IMAGE
-
-(TAG)
---------------------
-LIKE      |      ADD
-
-*/
