@@ -129,7 +129,7 @@ export const PostList = ({ filter }) => {
                     </> 
                     : <></>
             }
-            <div className="tile is-ancestor is-flex-wrap-wrap mt-3">
+            <div className="tile is-ancestor is-flex-wrap-wrap m-3">
                     {
                         filteredPosts.map(
                             (post) => {
@@ -222,18 +222,6 @@ export const PostList = ({ filter }) => {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            {
-                                                                filter === "Collection"
-                                                                    ? <>
-                                                                        <button 
-                                                                            className="button is-light is-link is-small mr-1"
-                                                                            onClick={(clickEvent) => handleRemoveButtonClick(clickEvent, post.postCollections.find(postCollection => postCollection.postId === post.id).id)}> 
-                                                                            <span className="icon"><i className="material-icons-outlined">remove</i></span>
-                                                                        </button>
-                                                                    </>
-                                                                    : <></>
-    
-                                                            }
                                                         </>
                                                         : <>
                                                             <button className="button is-light is-link is-small">

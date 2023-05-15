@@ -45,22 +45,31 @@ export const CollectionList = () => {
                         (collection) => {
                             return <div className="tile is-parent is-4" key={`collectionList--${collection.id}`}>
                                 <div className="tile is-child box has-text-centered">
-                                    <Link className="title is-6 mr-3" to={`${collection.id}`}>{collection.title}</Link>
+                                    <Link className="title is-6" to={`${collection.id}`}>{collection.title}</Link>
                                     {
                                         collection.userId === userObject.id || userObject.admin
-                                        ? <>
-                                            <button 
-                                                className="button is-light is-link is-small mr-1"
-                                                onClick={(clickEvent) => handleDeleteButtonClick(clickEvent, collection.id)}> 
-                                                <span className="icon"><i className="material-icons-outlined">delete</i></span>
-                                            </button>
-                                            <button 
-                                                className="button is-light is-link is-small">
-                                                <Link className="icon" to={`/collections/${collection.id}/edit`}><span className="icon"><i className="material-icons-outlined">edit</i></span></Link> 
-                                            </button>
-                                        </>
-                                        :<></>
-                                    } 
+                                            ? <>
+                                                <div className="dropdown is-hoverable has-text-left">
+                                                    <div className="dropdown-trigger">
+                                                        <button
+                                                            className="button is-light is-link is-small ml-1">
+                                                            <span className="icon"><i className="material-icons-outlined">edit</i></span>
+                                                        </button>
+                                                    </div>
+                                                    <div className="dropdown-menu">
+                                                        <div className="dropdown-content">
+                                                            <Link className="dropdown-item" to={`/collections/${collection.id}/edit`}>Edit</Link>
+                                                            <a
+                                                                href="#"
+                                                                className="dropdown-item"
+                                                                onClick={(clickEvent) => handleDeleteButtonClick(clickEvent, collection.id)}
+                                                            >Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                            : <></>
+                                    }
                                     
                                 </div>
                             </div>

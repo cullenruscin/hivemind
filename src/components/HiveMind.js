@@ -3,7 +3,6 @@ import { Login } from "./auth/Login";
 import { Authorized } from "./views/Authorized";
 import { ApplicationViews } from "./views/ApplicationViews";
 import { NavBar } from "./nav/NavBar";
-import { Footer } from "./nav/Footer";
 
 export const HiveMind = () => {
     return <Routes>
@@ -13,7 +12,6 @@ export const HiveMind = () => {
                 <>
                     <NavBar />
                     <ApplicationViews />
-                    <Footer />
                 </>
             </Authorized>
         }/>
