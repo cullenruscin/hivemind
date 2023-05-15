@@ -7,7 +7,9 @@ export const ProfileEdit = () => {
         firstName: "",
         lastName: "",
         email: "",
-        description: ""
+        description: "",
+        image: "",
+        isAdmin: false
     });
 
     const localUser = localStorage.getItem("hivemind_user");
@@ -36,6 +38,8 @@ export const ProfileEdit = () => {
             lastName: profile.lastName,
             email: profile.email,
             description: profile.description,
+            image: profile.image,
+            isAdmin: userObject.admin
         };
 
         return fetch(`http://localhost:8088/users/${userObject.id}`, {
@@ -78,6 +82,20 @@ export const ProfileEdit = () => {
                         (evt) => {
                             const copy = {...profile}
                             copy.lastName = evt.target.value
+                            update(copy)
+                        }
+                    } />
+            </fieldset>
+            <fieldset>
+                <input 
+                    type="text"
+                    className="input mt-4"
+                    placeholder="Profile Picture"
+                    value={profile.image}
+                    onChange={
+                        (evt) => {
+                            const copy = {...profile}
+                            copy.image = evt.target.value
                             update(copy)
                         }
                     } />

@@ -27,7 +27,7 @@ export const ProfileUser = () => {
     return (
         <div className="is-flex is-flex-direction-column is-align-items-center m-6">
             <figure className="image is-128x128">
-                <img className="is-rounded" src="https://bulma.io/images/placeholders/128x128.png"/>
+                <img className="is-rounded" src={user.image ? user.image : ""}/>
             </figure>
             <div className="is-flex is-flex-direction-column is-align-items-center m-4">
                 <p className="title is-4">{user.firstName} {user.lastName}</p>

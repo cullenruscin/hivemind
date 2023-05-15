@@ -4,7 +4,6 @@ import { ProfilePosts } from "./ProfilePosts";
 import { ProfileFavorites } from "./ProfileFavorites";
 import { ProfileCollections } from "./ProfileCollections";
 import { ProfileCollection } from "./ProfileCollection";
-import { CollectionCreate } from "../collections/CollectionCreate";
 import { useState } from "react";
 import { ProfileUser } from "./ProfileUser";
 import { ProfileEdit } from "./ProfileEdit";
